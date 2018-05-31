@@ -1,0 +1,329 @@
+// Jurassic vars
+$base-size: 10px;
+$dino-color: rgb(82, 156, 86);
+$dino-color--dark: darken($dino-color, 10%);
+$dino-color--darkest: darken($dino-color, 20%);
+
+$dino-color-2: #ae60c9;
+$dino-color-2--dark: darken($dino-color-2, 10%);
+$dino-color-2--darkest: darken($dino-color-2, 20%);
+
+$black: #000;
+$white: whitesmoke;
+$animation-timing: 1s;
+
+// fix box-sizing
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $base-size;
+}
+
+
+body {
+  font-family: 'Press Start 2P', cursive;
+
+  cursor: pointer;
+  position: relative;
+  background: #eee;
+  min-height: 100vh;
+  background: linear-gradient(
+    #3f87a6,
+    #3f87a6,
+    #ebf8e1 50%,
+    #995d1d 51%,
+    #da9b59 75%
+  );
+  background: linear-gradient(to top, #4b6cb7, #182848);
+}
+
+h1 {
+  position: absolute;
+  font-size: 2.5rem;
+  color: $white;
+  top: 1rem;
+  left: 1rem;
+}
+
+p {
+  position: absolute;
+  color: $white;
+  font-size: 1rem;
+  left: 1rem;
+  top: 4.5rem;
+}
+
+/* ==========================================================================
+   Environment
+   ========================================================================== */
+.sun {
+  position: absolute;
+  right: 10%;
+  top: 10%;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  background: rgb(255, 183, 89);
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 25rem;
+  background: linear-gradient(to top, rgb(20, 14, 12), #46312a);
+}
+
+.star-field {
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-around;
+  .fa-star {
+    padding: 1rem;
+    color: rgba($white, 0.2);
+
+    &:nth-of-type(odd) {
+      line-height: 2rem;
+      font-size: 0.8rem;
+    }
+
+    &:nth-of-type(3n + 3) {
+      font-size: 0.5rem;
+      line-height: 0;
+    }
+
+    &:nth-of-type(4n) {
+      font-size: 0.7rem;
+      line-height: 1rem;
+    }
+  }
+}
+
+/* ==========================================================================
+   Dino!
+   ========================================================================== */
+.dino {
+  width: 16rem;
+  height: 16rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  &__head {
+    position: absolute;
+    background: $dino-color;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 60%;
+    transform: translate(50%, -50%);
+    z-index: 1;
+    animation: headBob $animation-timing ease-in-out 0s alternate infinite;
+
+    box-shadow: -1rem 1rem 0.5rem rgba($black, 0.2);
+  }
+  &__eye {
+    position: absolute;
+    background: $white;
+    top: 20%;
+    left: 20%;
+    width: 20%;
+    height: 30%;
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+
+  &__pupil {
+    position: absolute;
+    background: $black;
+    top: 50%;
+    right: 0;
+    width: 40%;
+    height: 40%;
+    transform: translate(-25%, -50%);
+    z-index: 1;
+  }
+
+  &__mouth {
+    position: absolute;
+    display: flex;
+    top: 60%;
+    right: 10%;
+  }
+
+  &__tooth {
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-top: 2rem solid $white;
+  }
+
+  &__body {
+    position: absolute;
+    background: $dino-color--dark;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+
+  &__arm {
+    position: absolute;
+    background: $dino-color;
+    top: 50%;
+    right: 0;
+    width: 5rem;
+    height: 1rem;
+    transform: translate(50%, -50%);
+    z-index: 20;
+    box-shadow: -1rem 1rem 0.5rem 0.2rem rgba($black, 0.2);
+  }
+
+  &__hand {
+    position: absolute;
+    background: $dino-color--dark;
+    top: 1rem;
+    right: 0;
+    width: 2rem;
+    height: 1rem;
+    transform: rotate(90deg) translate(auto, auto);
+    z-index: 20;
+  }
+
+  &__tail {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(-100%, 0);
+    width: 0;
+    height: 0;
+    border-top: 5rem solid transparent;
+    border-bottom: 0px solid transparent;
+    border-right: 10rem solid $dino-color--dark;
+    z-index: 1;
+  }
+
+  &__leg {
+    position: absolute;
+    background: $dino-color--dark;
+    top: auto;
+    right: 0;
+    width: 2rem;
+    height: 10rem;
+    transform: translate(0, 0);
+    z-index: 1;
+    bottom: 0;
+
+    &--front {
+      transform: translate(-3rem, 50%);
+      animation-duration: 3s;
+      animation: walkFrontLeg $animation-timing ease-in-out 0s alternate
+        infinite;
+      // foot
+      &::after {
+        bottom: 0;
+        position: absolute;
+        content: "";
+        width: 4rem;
+        height: 2rem;
+        background: $dino-color--dark;
+        box-shadow: -1rem 1rem 1rem 0.5rem rgba($black, 0.2);
+      }
+    }
+    &--back {
+      background: $dino-color--darkest;
+      transform: translate(-10rem, 50%);
+      animation: walkBackLeg $animation-timing ease-in-out 1s alternate infinite;
+
+      // foot
+      &::after {
+        bottom: 0;
+        position: absolute;
+        content: "";
+        width: 4rem;
+        height: 2rem;
+        background: $dino-color--darkest;
+        box-shadow: -1rem 1rem 1rem 0.5rem rgba($black, 0.2);
+      }
+    }
+  }
+} // .dino
+
+.dino-2 {
+  left: 15%;
+  width: 15rem;
+  height: 20rem;
+
+  .dino {
+    &__body {
+      background: $dino-color-2--dark;
+    }
+    &__head {
+      background: $dino-color-2;
+      animation: headBob $animation-timing * 1.2 ease-in-out 0s alternate
+        infinite;
+    }
+    &__arm {
+      background: $dino-color-2;
+    }
+    &__hand {
+      background: $dino-color-2--dark;
+    }
+    &__leg {
+      &--front {
+        background: $dino-color-2--dark;
+        animation: walkFrontLeg $animation-timing * 1.2 ease-in-out 0s alternate
+          infinite;
+        &::after {
+          background: $dino-color-2--dark;
+        }
+      }
+      &--back {
+        background: $dino-color-2--darkest;
+        animation: walkBackLeg $animation-timing * 1.2 ease-in-out 1s alternate
+          infinite;
+        &::after {
+          background: $dino-color-2--darkest;
+        }
+      }
+    }
+    &__tail {
+      border-right: 10rem solid $dino-color-2--dark;
+    }
+  }
+}
+
+@keyframes walkFrontLeg {
+  from {
+    transform: translate(-3rem, 50%);
+  }
+  to {
+    transform: translate(-1rem, 50%);
+  }
+}
+
+@keyframes walkBackLeg {
+  from {
+    transform: translate(-10rem, 50%);
+  }
+  to {
+    transform: translate(-6rem, 50%);
+  }
+}
+
+@keyframes headBob {
+  from {
+    transform: translate(50%, -55%);
+  }
+  to {
+    transform: translate(50%, -50%);
+  }
+}
