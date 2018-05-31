@@ -20,24 +20,20 @@
    */
   let drums505 = new Tone.Sampler(
     {
-      "A2": "snare.[mp3|ogg]",
-      "A1": "kick.[mp3|ogg]"
+      A2: 'snare.[mp3|ogg]',
+      A1: 'kick.[mp3|ogg]'
     },
     {
       volume: -15,
       release: 1,
       baseUrl:
-        "https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/"
+        'https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/'
     }
   ).toMaster();
 
-  let drum505Part = new Tone.Loop(
-    function(time, note) {
-      drums505.triggerAttackRelease("A2", "1m", time);
-    },
-    "1n"
-  ).start("4n");
-
+  let drum505Part = new Tone.Loop(function(time, note) {
+    drums505.triggerAttackRelease('A2', '1m', time);
+  }, '1n').start('4n');
 
   // Kick
   let kick = new Tone.MembraneSynth({
